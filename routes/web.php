@@ -21,7 +21,7 @@ $router->get('/key', function ()
 });
 
 $router->get('/Biblioteca/Libros','LibrosController@Mostrarlibros');
+$router->get('/Biblioteca/Mostrar_prestamos','LibrosController@MostrarPrestamos');
 $router->get('/Biblioteca/Ingresar_Libros','LibrosController@Ingresarlibros');
-
 $router->post('/Biblioteca/Prestamo_libro','LibrosController@RegistrarPrestamoLibros');
 $router->post('/Biblioteca/Ingresar_socios','LibrosController@RegistrarSocio');

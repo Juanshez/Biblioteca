@@ -24,6 +24,29 @@ class LibrosController extends Controller
         return response()->json($r,200);
     }
 
+    function MostrarPrestamos(Request $request)
+    {
+        try {
+        if ($request->isMethod('get')) {
+            $data['paga'] = DB::table('libros_socios')
+            ->join('libros','libros_socios.libros_id','=','libros.id')
+            ->join('socios', 'libros_socios.socios_id', '=','socios.id')
+            ->select('libros.cod_libro','libros.titulo','socios.cod_socios',
+            'socios.nombre','socios.apellidos','socios.tlfn',
+            'libros_socios.fecha_salidad','libros_socios.fecha_devolucion',
+            'libros_socios.devuelto')
+            ->groupBy('libros_socios.devuelto')
+            ->get();
+
+            $data['paga_count']=$data['paga']->sum('Juan');
+            return response()->json($data,200);
+            }    
+        } catch (Exception $e) {
+            $r = array('Fallido' => 500, 'sms' => $e->getMessage());
+        }
+        return response()->json($r,200);
+    }
+
     function Ingresarlibros(Request $request)
     {
         try {
